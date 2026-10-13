@@ -1,7 +1,5 @@
-import pyperclip
-
-RLO = '' #Right-to-Left Override
-LRO = '' #Left-to-Right Override
+RLO = '\u202e' #Right-to-Left Override
+LRO = '\u202d' #Left-to-Right Override
 
 def splitText(string, spacing):
     splitString = list() #Create a list to hold the split string
@@ -39,10 +37,14 @@ def main():
     
     result = encodeText(text, spacing)
     print(result)
-    copy_to_clipboard = input('Copy to clipboard? (y/n):\n>>>')
-    if copy_to_clipboard.lower() == 'y':
-        pyperclip.copy(result)
-        print('Copied to clipboard!')
+    try:
+        import pyperclip
+        copy_choice = input('Copy to clipboard? (y/n):\n>>>')
+        if copy_choice.lower() == 'y':
+            pyperclip.copy(result)
+            print('Copied to clipboard!')
+    except ImportError:
+        print("pyperclip not installed. Install it with 'pip install pyperclip' to enable clipboard functionality.")
 
 if __name__ == '__main__':
     main()
